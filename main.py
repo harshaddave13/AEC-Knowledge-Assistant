@@ -25,8 +25,11 @@ async def upload_document(file: UploadFile = File(...)):
 
     result = document_service.extract_pdf(file_location)
 
+    chunks = document_service.chunk_text(result["text"]
+)
     return {
         "filename": file.filename,
         "pages": result["pages"],
-        "characters": result["characters"]
+        "characters": result["characters"],
+        "chunks_created": len(chunks)
     }
