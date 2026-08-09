@@ -48,3 +48,13 @@ class VectorService:
         )
 
         return len(chunks)
+
+    def search(self,question: str,top_k: int = 5):
+
+     # Convert the user's question into an embedding
+     question_embedding = self.embedding_model.encode([question]).tolist()
+
+     # Search ChromaDB for the most similar chunks
+     results = self.collection.query(query_embeddings=question_embedding,n_results=top_k)
+
+     return results
